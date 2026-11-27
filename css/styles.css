@@ -32,6 +32,10 @@ p{max-width:720px} .eyebrow{font:12px/1.5 "Red Hat Mono",monospace;letter-spacin
 .art svg{width:100%;height:100%}
 .art span{position:absolute;bottom:12px;left:12px;font:10px "Red Hat Mono",monospace;letter-spacing:.1em;background:var(--paper);padding:5px 8px}
 .split{display:grid;grid-template-columns:1fr 1.5fr;gap:65px;align-items:start}
+.timeline-section{grid-template-columns:minmax(0,3fr) minmax(0,7fr);gap:24px;max-height:1024px}
+.timeline-section .timeline-sidebar{grid-column:1;grid-row:1}
+.timeline-section .timeline-legend{margin:24px 0 0}
+.timeline-section .timeline{grid-column:2;grid-row:1;max-height:calc(1024px - 111px);margin:0;overflow-y:auto;overscroll-behavior:contain}
 .portrait{aspect-ratio:4/5;background:#ded8cc;display:grid;place-items:center;color:var(--muted);text-align:center;padding:25px}
 .cta{display:inline-block;border:1px solid var(--ink);border-radius:40px;padding:10px 22px;background:transparent;margin:8px 8px 8px 0}
 .cta:hover{background:var(--ink);color:var(--paper)}
@@ -137,6 +141,7 @@ dialog::backdrop{background:#252822b0}
 .event-date {
   padding-top: 2px;
   color: var(--ink);
+  text-align: right;
 
   font-family: "Red Hat Mono", monospace;
   font-size: 15px;
@@ -292,4 +297,22 @@ dialog::backdrop{background:#252822b0}
     padding: 4px 8px;
   }
 
+}
+
+@media (max-width: 700px) {
+  .timeline-section {
+    grid-template-columns: 1fr;
+    max-height: none;
+  }
+
+  .timeline-section .timeline-sidebar,
+  .timeline-section .timeline {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .timeline-section .timeline {
+    max-height: none;
+    overflow-y: visible;
+  }
 }

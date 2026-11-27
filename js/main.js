@@ -47,7 +47,7 @@ for (const [type, label] of Object.entries(timelineTypes)) {
   legend.append(tag);
 }
 
-timeline.before(legend);
+timeline.parentElement.querySelector(".timeline-sidebar").append(legend);
 
 // Generar experiencias
 for (const item of CONTENT.timeline) {
