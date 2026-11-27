@@ -1,0 +1,295 @@
+/* Identidad visual: modifica las variables para cambiar la paleta. */
+
+:root{--paper:#f5f1e9;--ink:#292a28;--muted:#64665d;--line:#d8d3c9;--green:#d5ddce}*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 "Outfit",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+header{position:sticky;top:0;background:var(--paper);z-index:5;border-bottom:1px solid var(--line)}
+nav{max-width:1240px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:18px 5%;gap:20px}
+.brand{font-family:"Red Hat Mono",monospace;font-size:24px;font-weight:bold}
+.links{display:flex;gap:22px;flex-wrap:wrap;font-size:14px}
+.links a.active{border-bottom:1px solid}
+main{max-width:1240px;margin:auto;padding:0 5% 70px}
+.page{display:none;animation:appear .3s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1,h2,h3{font-family:"Red Hat Mono",monospace;font-weight:normal;line-height:1.08;margin:0 0 22px}
+h1{font-size:clamp(36px,6.5vw,82px);letter-spacing:-.055em;overflow-wrap:anywhere}
+h2{font-size:clamp(32px,5vw,54px);letter-spacing:-.035em}
+h3{font-size:28px}
+p{max-width:720px} .eyebrow{font:12px/1.5 "Red Hat Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero{padding:90px 0 65px;display:grid;grid-template-columns:1.5fr .6fr;align-items:center;gap:40px}
+.hero p{font-size:20px;max-width:590px}
+.hero em{color:#65765d}
+.stamp{aspect-ratio:1;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;text-align:center;font:italic 30px "Red Hat Mono",monospace;transform:rotate(-9deg)}
+.section{padding:55px 0;border-top:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tile{display:block;text-align:left;background:none;border:0;padding:0;width:100%}
+.tile h3{margin:15px 0 8px}
+.tile p{font-size:15px;color:var(--muted)}
+.art{aspect-ratio:4/3;position:relative;overflow:hidden;display:grid;place-items:center;background:#c8cfc0;transition:transform .2s}
+.tile:hover .art{transform:translateY(-4px)}
+.art svg{width:100%;height:100%}
+.art span{position:absolute;bottom:12px;left:12px;font:10px "Red Hat Mono",monospace;letter-spacing:.1em;background:var(--paper);padding:5px 8px}
+.split{display:grid;grid-template-columns:1fr 1.5fr;gap:65px;align-items:start}
+.portrait{aspect-ratio:4/5;background:#ded8cc;display:grid;place-items:center;color:var(--muted);text-align:center;padding:25px}
+.cta{display:inline-block;border:1px solid var(--ink);border-radius:40px;padding:10px 22px;background:transparent;margin:8px 8px 8px 0}
+.cta:hover{background:var(--ink);color:var(--paper)}
+.intro{padding:75px 0 45px}
+.intro p{font-size:19px}
+.gallery{columns:3;column-gap:20px}
+.gallery .tile{break-inside:avoid;margin-bottom:20px}
+.gallery .art{aspect-ratio:var(--ratio,1)}
+footer{border-top:1px solid var(--line);padding:35px 5%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+dialog{background:var(--paper);color:var(--ink);border:1px solid var(--line);width:min(760px,94vw);max-height:90vh;padding:30px}
+dialog::backdrop{background:#252822b0}
+.close{float:right;border:0;background:none;font-size:25px}
+.notice{font-size:13px;color:var(--muted)}
+@media(max-width:700px){nav{align-items:flex-start;flex-direction:column;gap:8px}
+.links{gap:12px}
+.hero{grid-template-columns:1fr;padding:45px 0}
+.stamp{display:none}
+.grid,.split{grid-template-columns:1fr;gap:25px}
+.gallery{columns:2}
+.intro{padding-top:40px}
+.section{padding:35px 0}}
+
+.art img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}.portrait img{width:100%;height:100%;object-fit:cover}.portrait:has(img){padding:0;overflow:hidden}.gallery .art img,.detail-image img{object-fit:contain}.detail-image{aspect-ratio:auto}.detail-image img{position:static;max-height:65vh;height:auto}.skip{position:absolute;left:1rem;top:-100px;z-index:20;background:var(--paper);padding:12px}.skip:focus{top:0} :focus-visible{outline:2px solid #53684e;outline-offset:4px}#especialidades{scroll-margin-top:140px}button:disabled{opacity:.55;cursor:default}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ========================================
+   TIMELINE — TRAYECTORIA
+   ======================================== */
+
+/* Colores de las categorías */
+
+[data-type="academic"] {
+  --event-color: #5C4677;
+  --event-background: #E4DCEF;
+}
+
+[data-type="work"] {
+  --event-color: #3E5677;
+  --event-background: #DCE5F1;
+}
+
+[data-type="creative"] {
+  --event-color: #8A5140;
+  --event-background: #F0DCD2;
+}
+
+[data-type="training"] {
+  --event-color: #47633C;
+  --event-background: #DCE6D5;
+}
+
+/* Leyenda de categorías */
+
+.timeline-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 40px;
+}
+
+/* Etiquetas */
+
+.timeline-tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px 10px;
+  border-radius: 4px;
+
+  background: var(--event-background, #E5E2DB);
+  color: var(--event-color, var(--ink));
+
+  font-family: "Outfit", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Contenedor principal */
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 32px 0;
+  padding: 0;
+  border: none;
+}
+
+/* Experiencia individual */
+
+.timeline .event {
+  display: grid;
+  grid-template-columns: 120px 24px minmax(0, 1fr);
+  column-gap: 24px;
+  position: relative;
+  padding: 0;
+}
+
+/* Columna del año */
+
+.event-date {
+  padding-top: 2px;
+  color: var(--ink);
+
+  font-family: "Red Hat Mono", monospace;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Columna de la línea vertical */
+
+.event-marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+}
+
+/* Línea vertical */
+
+.event-marker::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: -12px;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: var(--line);
+}
+
+/* Punto de color */
+
+.event-marker::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 50%;
+
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+
+  background: var(--event-color, var(--muted));
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+/* Final de la línea */
+
+.event:last-child .event-marker::before {
+  display: none;
+}
+
+/* Columna de contenido */
+
+.event-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding-bottom: 40px;
+  min-width: 0;
+}
+
+.timeline .event h3 {
+  font-family: "Red Hat Mono", monospace;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.timeline .event-description {
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+.event:last-child .event-content {
+  padding-bottom: 0;
+}
+
+/* ========================================
+   TIMELINE — TABLET
+   ======================================== */
+
+@media (max-width: 900px) {
+
+  .timeline .event {
+    grid-template-columns: 100px 18px minmax(0, 1fr);
+    column-gap: 16px;
+  }
+
+  .event-date {
+    font-size: 13px;
+  }
+
+  .timeline .event h3 {
+    font-size: 20px;
+  }
+
+}
+
+/* ========================================
+   TIMELINE — MOBILE
+   ======================================== */
+
+@media (max-width: 600px) {
+
+  .timeline-legend {
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+
+  .timeline .event {
+    grid-template-columns: 20px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 16px;
+    row-gap: 8px;
+  }
+
+  .event-date {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 14px;
+  }
+
+  .event-marker {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .event-content {
+    grid-column: 2;
+    grid-row: 2;
+    gap: 8px;
+    padding-bottom: 32px;
+  }
+
+  .timeline .event h3 {
+    font-size: 19px;
+  }
+
+  .timeline .event-description {
+    font-size: 15px;
+  }
+
+  .timeline-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+}
