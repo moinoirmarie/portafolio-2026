@@ -40,10 +40,31 @@ timeline.replaceChildren();
 
 // Crear leyenda de categorías
 const legend = make("div", "", "timeline-legend");
+legend.setAttribute("role", "group");
+legend.setAttribute("aria-label", "Filtrar trayectoria por categoría");
+const selectedTimelineTypes = new Set();
 
 for (const [type, label] of Object.entries(timelineTypes)) {
-  const tag = make("span", label, "timeline-tag");
+  const tag = make("label", "", "timeline-tag");
   tag.dataset.type = type;
+  const checkbox = make("input");
+  checkbox.type = "checkbox";
+  checkbox.value = type;
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      selectedTimelineTypes.add(type);
+    } else {
+      selectedTimelineTypes.delete(type);
+    }
+
+    for (const event of timeline.querySelectorAll(".event")) {
+      event.hidden = selectedTimelineTypes.size > 0
+        && !selectedTimelineTypes.has(event.dataset.type);
+    }
+
+    timeline.scrollTop = 0;
+  });
+  tag.append(make("span", label), checkbox);
   legend.append(tag);
 }
 

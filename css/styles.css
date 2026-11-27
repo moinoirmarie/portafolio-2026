@@ -90,8 +90,9 @@ dialog::backdrop{background:#252822b0}
 
 .timeline-legend {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
   margin: 24px 0 40px;
 }
 
@@ -114,6 +115,135 @@ dialog::backdrop{background:#252822b0}
   line-height: 1.4;
 }
 
+
+/* ========================================
+   TIMELINE — FILTER BUTTONS
+   ======================================== */
+
+.timeline-legend .timeline-tag {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 8px;
+  gap: 12px;
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+
+  color: var(--muted);
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    background-color .18s ease,
+    color .18s ease;
+}
+
+/* Indicador de categoría */
+
+.timeline-legend .timeline-tag::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+
+  border: 1px solid var(--event-color);
+  border-radius: 50%;
+  background: transparent;
+
+  transition: background-color .18s ease;
+}
+
+/* Hover */
+
+.timeline-legend .timeline-tag:hover {
+  background: #ebe7de;
+  color: var(--ink);
+}
+
+/* Estado seleccionado */
+
+.timeline-legend .timeline-tag:has(input:checked) {
+  color: var(--ink);
+}
+
+.timeline-legend .timeline-tag:has(input:checked)::before {
+  background: var(--event-color);
+}
+
+/* Checkbox minimalista */
+
+.timeline-legend .timeline-tag input {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: grid;
+  place-content: center;
+
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+
+  margin: 0 0 0 auto;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Marca de selección */
+
+.timeline-legend .timeline-tag input::before {
+  content: "";
+  width: 9px;
+  height: 5px;
+
+  border-left: 1.5px solid var(--event-color);
+  border-bottom: 1.5px solid var(--event-color);
+
+  transform: translateY(-2px) rotate(-45deg);
+  opacity: 0;
+
+  transition: opacity .18s ease;
+}
+
+.timeline-legend .timeline-tag input:checked::before {
+  opacity: 1;
+}
+
+/* Accesibilidad mediante teclado */
+
+.timeline-legend .timeline-tag:has(input:focus-visible) {
+  outline: 1.5px solid var(--event-color);
+  outline-offset: 3px;
+}
+
+.timeline-legend .timeline-tag input:focus-visible {
+  outline: none;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+  .timeline-legend .timeline-tag {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+}
+
 /* Contenedor principal */
 
 .timeline {
@@ -134,6 +264,10 @@ dialog::backdrop{background:#252822b0}
   column-gap: 24px;
   position: relative;
   padding: 0;
+}
+
+.timeline .event[hidden] {
+  display: none;
 }
 
 /* Columna del año */
@@ -244,9 +378,6 @@ dialog::backdrop{background:#252822b0}
 
   .timeline .event h3 {
     font-size: 20px;
-  }
-    .timeline-section .timeline {
-    padding: 24px 12px 24px 24px;
   }
 
 }
@@ -372,18 +503,67 @@ dialog::backdrop{background:#252822b0}
   margin-bottom: 0;
 }
 
-/* Integración del scrollbar */
+
+/* ========================================
+   TIMELINE — CUSTOM SCROLLBAR
+   ======================================== */
+
+.timeline-section .timeline {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+/* Ancho del scrollbar */
+
+.timeline-section .timeline::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Carril del scrollbar */
 
 .timeline-section .timeline::-webkit-scrollbar-track {
+  background: var(--green);
+  border: 1px solid var(--line);
+  border-radius: 20px;
   margin-block: 16px;
+}
+
+/* Control deslizante */
+
+.timeline-section .timeline::-webkit-scrollbar-thumb {
+  background: #65765d;
+  border: 3px solid var(--green);
   border-radius: 20px;
 }
+
+/* Hover */
+
+.timeline-section .timeline::-webkit-scrollbar-thumb:hover {
+  background: #53684e;
+}
+
+/* Active */
+
+.timeline-section .timeline::-webkit-scrollbar-thumb:active {
+  background: #47633c;
+}
+
+/* Firefox */
+
+@supports not selector(::-webkit-scrollbar) {
+  .timeline-section .timeline {
+    scrollbar-width: thin;
+    scrollbar-color: #65765d var(--green);
+  }
+}
+
 
 /* Tablet */
 
 @media (max-width: 900px) {
   .timeline-section .timeline {
-    padding: 24px;
+    padding: 24px 12px 24px 24px;
   }
 }
 
