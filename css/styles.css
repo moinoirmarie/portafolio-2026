@@ -245,8 +245,12 @@ dialog::backdrop{background:#252822b0}
   .timeline .event h3 {
     font-size: 20px;
   }
+    .timeline-section .timeline {
+    padding: 24px 12px 24px 24px;
+  }
 
 }
+
 
 /* ========================================
    TIMELINE — MOBILE
@@ -314,5 +318,88 @@ dialog::backdrop{background:#252822b0}
   .timeline-section .timeline {
     max-height: none;
     overflow-y: visible;
+  }
+}
+
+/* ========================================
+   TIMELINE — NEUTRAL SURFACE
+   ======================================== */
+
+:root {
+  --timeline-bg: #f0ece3;
+}
+
+/* Contenedor del timeline */
+
+.timeline-section .timeline {
+  background: var(--timeline-bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px 12px 32px 32px;
+}
+
+/* Ajuste de los marcadores al nuevo fondo */
+
+.timeline-section .event-marker::after {
+  box-shadow: 0 0 0 4px var(--timeline-bg);
+}
+
+/* Separación entre experiencias */
+
+.timeline-section .event-content {
+  position: relative;
+  padding-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+/* Separador horizontal */
+
+.timeline-section .event:not(:last-child)
+.event-content::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Última experiencia */
+
+.timeline-section .event:last-child .event-content {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* Integración del scrollbar */
+
+.timeline-section .timeline::-webkit-scrollbar-track {
+  margin-block: 16px;
+  border-radius: 20px;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .timeline-section .timeline {
+    padding: 24px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .timeline-section .timeline {
+    padding: 24px 16px;
+    border-radius: 8px;
+    max-height: none;
+    overflow: visible;
+    scrollbar-gutter: auto;
+  }
+
+  .timeline-section .event-content {
+    padding-bottom: 24px;
+    margin-bottom: 16px;
   }
 }
